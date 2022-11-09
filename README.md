@@ -26,7 +26,7 @@
 </p>
 
 <p align="center">
-    <a href="#gear-getting-start">Getting Start</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#zap-getting-start">Getting Start</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#commands">Commands</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#balance_scale-license">License</a>
 </p>
@@ -37,7 +37,7 @@ Focused to use **Component Library** [NativeBase](https://nativebase.io/ "Native
 
 - [Figma - Ignite Gym](https://www.figma.com/community/file/1163926136397847279 "Figma: Ignite Gym")
 
-## :gear: Getting Started
+## ⚡ Quick Start
 
 ```Bash
 # Run application
