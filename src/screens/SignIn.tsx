@@ -7,7 +7,7 @@ import LogoSVG from '@assets/logo.svg';
 
 export function SignIn() {
   return (
-    <VStack flex={1} bg="gray.700">
+    <VStack flex={1} bg="gray.700" px={10}>
       <Image
         alt="Pessoas treinando em uma esteira"
         position="absolute"
@@ -33,8 +33,16 @@ export function SignIn() {
           Acesse sua conta
         </Heading>
 
-        <Input placeholder="E-mail" />
-        <Input placeholder="Senha" />
+        <Input
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="E-mail"
+        />
+
+        <Input
+          placeholder="Senha"
+          secureTextEntry
+        />
       </Center>
     </VStack>
   )
