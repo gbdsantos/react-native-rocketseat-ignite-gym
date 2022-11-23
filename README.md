@@ -26,6 +26,11 @@
 </p>
 
 <p align="center">
+  <img alt="App demo" src="./assets/app-demo.gif">
+</p>
+
+
+<p align="center">
     <a href="#zap-getting-start">Getting Start</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#commands">Commands</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#balance_scale-license">License</a>
