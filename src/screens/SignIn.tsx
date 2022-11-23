@@ -1,5 +1,7 @@
 import { Center, Heading, Image, Text, VStack } from 'native-base';
 
+import { Input } from '@components/Input';
+
 import BackgroundImg from '@assets/background.png';
 import LogoSVG from '@assets/logo.svg';
 
@@ -30,6 +32,9 @@ export function SignIn() {
         >
           Acesse sua conta
         </Heading>
+
+        <Input placeholder="E-mail" />
+        <Input placeholder="Senha" />
       </Center>
     </VStack>
   )
