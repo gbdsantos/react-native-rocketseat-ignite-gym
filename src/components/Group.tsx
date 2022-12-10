@@ -12,6 +12,10 @@ export function Group({ name, ...rest }: Props) {
       justifyContent="center"
       mr={3}
       overflow="hidden"
+      _pressed={{
+        borderColor: "green.500",
+        borderWidth: 1,
+      }}
       rounded="md"
       h={10}
       w={24}
