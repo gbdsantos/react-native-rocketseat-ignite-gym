@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlatList, HStack, VStack } from 'native-base';
+import { FlatList, Heading, HStack, Text, VStack } from 'native-base';
 
 import { Group } from '@components/Group';
 import { HomeHeader } from '@components/HomeHeader';
@@ -28,6 +28,20 @@ export function Home() {
         )}
         showsHorizontalScrollIndicator={false}
       />
+
+      <VStack flex={1} px={8}>
+        <HStack justifyContent="space-between" mb={5}>
+          <Heading color="gray.200" fontSize="md">
+            Exercícios
+          </Heading>
+
+          <Text color="gray.200" fontSize="sm">
+            4
+          </Text>
+        </HStack>
+
+
+      </VStack>
     </VStack>
   );
 }
