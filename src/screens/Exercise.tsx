@@ -1,4 +1,4 @@
-import { Heading, HStack, Icon, Text, VStack } from 'native-base';
+import { Heading, HStack, Icon, Image, Text, VStack } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -32,6 +32,18 @@ export function Exercise() {
             </Text>
           </HStack>
         </HStack>
+      </VStack>
+
+      <VStack p={8}>
+        <Image
+          h={80}
+          w="full"
+          alt="Nome do exercício"
+          source={{ uri: 'http://conteudo.imguol.com.br/c/entretenimento/0c/2019/12/03/remada-unilateral-com-halteres-1575402100538_v2_600x600.jpg' }}
+          mb={3}
+          resizeMode="cover"
+          rounded="lg"
+        />
       </VStack>
     </VStack>
   );
