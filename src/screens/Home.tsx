@@ -29,6 +29,7 @@ export function Home() {
         horizontal
         keyExtractor={item => item}
         maxH={10}
+        minH={10}
         my={10}
         renderItem={({ item }) => (
           <Group

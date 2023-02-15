@@ -5,8 +5,8 @@ import { ScreenHeader } from "./ScreenHeader";
 export function HistoryCard() {
   return (
     <HStack w="full" px={5} py={4} mb={3} bg="gray.600" rounded="md" alignItems="center" justifyContent="space-between">
-      <VStack mr={5}>
-        <Heading color="white" fontSize="md" textTransform="capitalize">
+      <VStack flex={1} mr={5}>
+        <Heading color="white" fontSize="md" numberOfLines={1} textTransform="capitalize">
           Costas
         </Heading>
 
