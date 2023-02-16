@@ -15,8 +15,15 @@ import { Input } from '@components/Input';
 import BackgroundImg from '@assets/background.png';
 import LogoSVG from '@assets/logo.svg';
 
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+}
+
 export function SignUp() {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<FormDataProps>();
 
   const { goBack } = useNavigation();
 
@@ -24,7 +31,7 @@ export function SignUp() {
     goBack();
   }
 
-  function handleSignUp(data: any) {
+  function handleSignUp(data: FormDataProps) {
     console.log(data);
   }
 
