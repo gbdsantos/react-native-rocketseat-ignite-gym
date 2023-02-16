@@ -16,7 +16,7 @@ import BackgroundImg from '@assets/background.png';
 import LogoSVG from '@assets/logo.svg';
 
 export function SignUp() {
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const { goBack } = useNavigation();
 
@@ -24,8 +24,8 @@ export function SignUp() {
     goBack();
   }
 
-  function handleSignUp() {
-
+  function handleSignUp(data: any) {
+    console.log(data);
   }
 
   return (
@@ -105,7 +105,9 @@ export function SignUp() {
             render={({ field: { onChange, value } }) => (
               <Input
                 onChangeText={onChange}
+                onSubmitEditing={handleSubmit(handleSignUp)}
                 placeholder="Confirme a Senha"
+                returnKeyType="send"
                 secureTextEntry
                 value={value}
               />
@@ -113,7 +115,7 @@ export function SignUp() {
           />
 
           <Button
-            onPress={handleSignUp}
+            onPress={handleSubmit(handleSignUp)}
             title="Criar e acessar"
           />
         </Center>
