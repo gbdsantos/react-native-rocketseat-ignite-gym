@@ -23,7 +23,11 @@ type FormDataProps = {
 }
 
 export function SignUp() {
-  const { control, handleSubmit } = useForm<FormDataProps>();
+  const {
+    control,
+    formState: { errors },
+    handleSubmit
+  } = useForm<FormDataProps>();
 
   const { goBack } = useNavigation();
 
@@ -81,6 +85,10 @@ export function SignUp() {
               required: 'Informe o nome.'
             }}
           />
+
+          <Text color="white">
+            {errors.name?.message}
+          </Text>
 
           <Controller
             control={control}
