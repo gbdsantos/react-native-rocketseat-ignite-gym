@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native';
 import { Center, Skeleton, ScrollView, Text, VStack, Heading } from 'native-base'
+
+import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 
 import { Button } from '@components/Button';
@@ -25,13 +27,14 @@ export function Profile() {
         allowsEditing: true,
       });
 
-      console.log(photoSelected);
-
       if (photoSelected.canceled) {
         return;
       }
 
       if (photoSelected.assets[0].uri) {
+        const photoInfo = await FileSystem.getInfoAsync(photoSelected.assets[0].uri)
+        console.log(photoInfo);
+
         setUserPhoto(photoSelected.assets[0].uri);
       }
 
