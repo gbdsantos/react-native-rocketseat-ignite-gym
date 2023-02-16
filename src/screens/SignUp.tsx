@@ -23,7 +23,11 @@ type FormDataProps = {
 }
 
 export function SignUp() {
-  const { control, handleSubmit } = useForm<FormDataProps>();
+  const { control, handleSubmit } = useForm<FormDataProps>({
+    defaultValues: {
+      name: 'Guilherme'
+    }
+  });
 
   const { goBack } = useNavigation();
 
