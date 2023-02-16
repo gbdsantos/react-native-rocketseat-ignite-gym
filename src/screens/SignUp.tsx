@@ -76,6 +76,7 @@ export function SignUp() {
             name="name"
             render={({ field: { onChange, value } }) => (
               <Input
+                errorMessage={errors.name?.message}
                 onChangeText={onChange}
                 placeholder="Nome"
                 value={value}
@@ -86,16 +87,13 @@ export function SignUp() {
             }}
           />
 
-          <Text color="white">
-            {errors.name?.message}
-          </Text>
-
           <Controller
             control={control}
             name="email"
             render={({ field: { onChange, value } }) => (
               <Input
                 autoCapitalize="none"
+                errorMessage={errors.email?.message}
                 keyboardType="email-address"
                 onChangeText={onChange}
                 placeholder="E-mail"
@@ -110,10 +108,6 @@ export function SignUp() {
               required: 'Informe o e-mail'
             }}
           />
-
-          <Text color="white">
-            {errors.email?.message}
-          </Text>
 
           <Controller
             control={control}
