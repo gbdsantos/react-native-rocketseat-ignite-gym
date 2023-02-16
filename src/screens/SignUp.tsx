@@ -102,7 +102,18 @@ export function SignUp() {
                 value={value}
               />
             )}
+            rules={{
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'E-mail inválido'
+              },
+              required: 'Informe o e-mail'
+            }}
           />
+
+          <Text color="white">
+            {errors.email?.message}
+          </Text>
 
           <Controller
             control={control}
