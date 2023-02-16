@@ -12,6 +12,7 @@ const PHOTO_SIZE = 33;
 
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
+  const [userPhoto, setUserPhoto] = useState('https://github.com/gbdsantos.png')
 
   async function handleUserPhotoSelect() {
     const photoSelected = await ImagePicker.launchImageLibraryAsync({
@@ -26,6 +27,8 @@ export function Profile() {
     if (photoSelected.canceled) {
       return;
     }
+
+    setUserPhoto(photoSelected.assets[0].uri);
   }
 
   return (
@@ -46,7 +49,7 @@ export function Profile() {
               /> :
               <UserPhoto
                 alt="Foto do usuário"
-                source={{ uri: 'https://github.com/gbdsantos.png' }}
+                source={{ uri: userPhoto }}
                 size={PHOTO_SIZE}
               />
           }
