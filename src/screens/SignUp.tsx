@@ -8,6 +8,8 @@ import {
 } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
@@ -22,12 +24,19 @@ type FormDataProps = {
   password_confirm: string;
 }
 
+const signUpSchema = Yup.object({
+  name: Yup.string().required('Informe o nome.'),
+  email: Yup.string().required('Informe o e-mail.').email('E-mail inválido')
+});
+
 export function SignUp() {
   const {
     control,
     formState: { errors },
     handleSubmit
-  } = useForm<FormDataProps>();
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(signUpSchema)
+  });
 
   const { goBack } = useNavigation();
 
@@ -82,9 +91,6 @@ export function SignUp() {
                 value={value}
               />
             )}
-            rules={{
-              required: 'Informe o nome.'
-            }}
           />
 
           <Controller
@@ -100,13 +106,6 @@ export function SignUp() {
                 value={value}
               />
             )}
-            rules={{
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'E-mail inválido'
-              },
-              required: 'Informe o e-mail'
-            }}
           />
 
           <Controller
