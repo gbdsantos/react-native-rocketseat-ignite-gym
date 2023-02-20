@@ -35,10 +35,16 @@ export function SignUp() {
   const {
     control,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    reset
   } = useForm<FormDataProps>({
     resolver: yupResolver(signUpSchema)
   });
+
+  const defaultValues = {
+    email: '',
+    password: ''
+  }
 
   const { goBack } = useNavigation();
 
@@ -48,6 +54,7 @@ export function SignUp() {
 
   function handleSignUp(data: FormDataProps) {
     console.log(data);
+    reset(defaultValues);
   }
 
   return (

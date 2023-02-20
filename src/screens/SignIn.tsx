@@ -35,13 +35,20 @@ export function SignIn() {
   const {
     control,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    reset
   } = useForm<FormDataProps>({
     resolver: yupResolver(signInSchema)
   });
 
+  const defaultValues = {
+    email: '',
+    password: ''
+  }
+
   function handleAutentication(data: FormDataProps) {
     console.log(data);
+    reset(defaultValues);
   }
 
   function handleNewAccount() {
