@@ -52,10 +52,10 @@ export function SignUp() {
     goBack();
   }
 
-  function handleSignUp(data: FormDataProps) {
+  async function handleSignUp(data: FormDataProps) {
     console.log(data);
 
-    fetch('http://192.168.1.11:3333/users', {
+    const response = await fetch('http://192.168.1.11:3333/users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -63,8 +63,9 @@ export function SignUp() {
       },
       body: JSON.stringify(data)
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
+
+    const apiData = await response.json();
+    console.log(apiData);
 
     reset(defaultValues);
   }
