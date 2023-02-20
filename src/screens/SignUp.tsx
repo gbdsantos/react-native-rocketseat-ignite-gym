@@ -54,6 +54,16 @@ export function SignUp() {
 
   function handleSignUp(data: FormDataProps) {
     console.log(data);
+
+    fetch('http://192.168.1.11:3333/users', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
     reset(defaultValues);
   }
 
