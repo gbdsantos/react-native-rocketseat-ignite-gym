@@ -5,13 +5,13 @@ import { Box, useTheme } from 'native-base';
 import { AuthRoutes } from "./auth.routes";
 import { AppRoutes } from "./app.routes";
 
-import { AuthContext } from "@contexts/AuthContext";
+import { useAuth } from "@hooks/useAuth";
 
 export function Routes() {
   const { colors } = useTheme();
+  const { user } = useAuth();
 
-  const contextData = useContext(AuthContext);
-  console.log("LOGGED  USER: ", contextData);
+  console.log("LOGGED  USER: ", user);
 
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[700];
