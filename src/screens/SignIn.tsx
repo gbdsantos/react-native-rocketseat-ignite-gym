@@ -50,8 +50,8 @@ export function SignIn() {
     password: ''
   }
 
-  function handleAutentication({ email, password }: FormDataProps) {
-    signIn(email, password);
+  async function handleAutentication({ email, password }: FormDataProps) {
+    await signIn(email, password);
     reset(defaultValues);
   }
 
