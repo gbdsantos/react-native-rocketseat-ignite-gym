@@ -14,6 +14,8 @@ import * as Yup from 'yup';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 
+import { useAuth } from '@hooks/useAuth';
+
 import BackgroundImg from '@assets/background.png';
 import LogoSVG from '@assets/logo.svg';
 
@@ -30,6 +32,8 @@ const signInSchema = Yup.object({
 });
 
 export function SignIn() {
+  const { signIn } = useAuth();
+
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
 
   const {
@@ -46,8 +50,8 @@ export function SignIn() {
     password: ''
   }
 
-  function handleAutentication(data: FormDataProps) {
-    console.log(data);
+  function handleAutentication({ email, password }: FormDataProps) {
+    signIn(email, password);
     reset(defaultValues);
   }
 
