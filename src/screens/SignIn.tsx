@@ -4,6 +4,7 @@ import {
   Image,
   ScrollView,
   Text,
+  useToast,
   VStack
 } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +22,8 @@ import LogoSVG from '@assets/logo.svg';
 
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 
+import { AppError } from '@utils/AppError';
+
 type FormDataProps = {
   email: string;
   password: string;
@@ -35,6 +38,8 @@ export function SignIn() {
   const { signIn } = useAuth();
 
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
+
+  const toast = useToast();
 
   const {
     control,
@@ -51,8 +56,20 @@ export function SignIn() {
   }
 
   async function handleAutentication({ email, password }: FormDataProps) {
-    await signIn(email, password);
-    reset(defaultValues);
+    try {
+      await signIn(email, password);
+      reset(defaultValues);
+
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde.';
+      toast.show({
+        bgColor: 'red.500',
+        placement: 'top',
+        title,
+      })
+    }
   }
 
   function handleNewAccount() {
