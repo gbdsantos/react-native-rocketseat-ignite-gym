@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Center,
   Heading,
@@ -35,6 +36,8 @@ const signInSchema = Yup.object({
 });
 
 export function SignIn() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { signIn } = useAuth();
 
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
@@ -57,18 +60,22 @@ export function SignIn() {
 
   async function handleAutentication({ email, password }: FormDataProps) {
     try {
+      setIsLoading(true);
+
       await signIn(email, password);
       reset(defaultValues);
 
     } catch (error) {
       const isAppError = error instanceof AppError;
 
+      setIsLoading(false);
+
       const title = isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde.';
       toast.show({
         bgColor: 'red.500',
         placement: 'top',
         title,
-      })
+      });
     }
   }
 
@@ -138,6 +145,7 @@ export function SignIn() {
           />
 
           <Button
+            isLoading={isLoading}
             title="Acessar"
             onPress={handleSubmit(handleAutentication)}
           />
