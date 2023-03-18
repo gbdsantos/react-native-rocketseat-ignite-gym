@@ -11,8 +11,6 @@ export function Routes() {
   const { colors } = useTheme();
   const { user } = useAuth();
 
-  console.log("LOGGED  USER: ", user);
-
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[700];
 
