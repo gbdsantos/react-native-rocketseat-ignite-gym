@@ -19,11 +19,11 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState({} as UserDTO);
 
   async function signIn(email: string, password: string) {
-    const { data } = await api.post('/sessions', { email, password });
-
     try {
+      const { data } = await api.post('/sessions', { email, password });
+
       if (data.user) {
-        setUser(data);
+        setUser(data.user);
       }
     } catch (error) {
       throw error;

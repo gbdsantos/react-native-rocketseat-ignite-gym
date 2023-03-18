@@ -68,14 +68,13 @@ export function SignIn() {
     } catch (error) {
       const isAppError = error instanceof AppError;
 
-      setIsLoading(false);
-
       const title = isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde.';
       toast.show({
         bgColor: 'red.500',
         placement: 'top',
         title,
       });
+      setIsLoading(false);
     }
   }
 
