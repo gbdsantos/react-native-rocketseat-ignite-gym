@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { useState } from 'react';
 import {
   Center,
   Heading,
@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 import { api } from '@services/api';
+import { useAuth } from '@hooks/useAuth';
 
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
@@ -38,6 +39,9 @@ const signUpSchema = Yup.object({
 });
 
 export function SignUp() {
+  const [isLoading, setIsLoading] = useState(false);
+  const { signIn } = useAuth();
+
   const {
     control,
     formState: { errors },
@@ -61,12 +65,14 @@ export function SignUp() {
 
   async function handleSignUp({ name, email, password }: FormDataProps) {
     try {
-      const response = await api.post('/users', {
-        name, email, password
-      });
+      setIsLoading(true);
 
-      console.log(response.data);
+      await api.post('/users', { name, email, password });
+      await signIn(email, password);
+
     } catch (error) {
+      setIsLoading(false);
+
       const isAppError = error instanceof AppError;
       const title = isAppError ? error.message : 'Não foi possível criar a conta. Tente novamente mais tarde.'
 
@@ -171,6 +177,7 @@ export function SignUp() {
           />
 
           <Button
+            isLoading={isLoading}
             onPress={handleSubmit(handleSignUp)}
             title="Criar e acessar"
           />
