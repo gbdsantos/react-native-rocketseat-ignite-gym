@@ -12,7 +12,7 @@ import HistorySvg from '@assets/history.svg';
 import ProfileSvg from '@assets/profile.svg';
 
 type AppRoutes = {
-  exercise: undefined;
+  exercise: { exerciseId: string };
   history: undefined;
   home: undefined;
   profile: undefined;
