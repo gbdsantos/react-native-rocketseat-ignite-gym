@@ -20,7 +20,7 @@ import { AppError } from '@utils/AppError';
 import { ExerciseDTO } from '@dtos/ExerciseDTO';
 
 export function Home() {
-  const [exercises, setExercises] = useState<[ExerciseDTO[]]>([]);
+  const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
   const [groups, setGroups] = useState<string[]>([]);
   const [groupSelected, setGroupSelected] = useState('costa');
 
