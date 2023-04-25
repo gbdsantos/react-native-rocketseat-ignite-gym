@@ -17,9 +17,10 @@ import { HomeHeader } from '@components/HomeHeader';
 
 import { api } from '@services/api';
 import { AppError } from '@utils/AppError';
+import { ExerciseDTO } from '@dtos/ExerciseDTO';
 
 export function Home() {
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState<[ExerciseDTO[]]>([]);
   const [groups, setGroups] = useState<string[]>([]);
   const [groupSelected, setGroupSelected] = useState('costa');
 
@@ -50,6 +51,7 @@ export function Home() {
   async function fetchExercisesByGroup() {
     try {
       const response = await api.get(`/exercises/bygroup/${groupSelected}`);
+      setExercises(response.data);
 
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -107,7 +109,7 @@ export function Home() {
         <FlatList
           _contentContainerStyle={{ paddingBottom: 20 }}
           data={exercises}
-          keyExtractor={item => item}
+          keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <ExerciseCard
               onPress={handleOpenExerciseDetails}
