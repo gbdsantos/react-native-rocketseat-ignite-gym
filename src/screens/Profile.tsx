@@ -10,9 +10,11 @@ import {
   VStack
 } from 'native-base'
 import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
+import * as yup from 'yup';
 
 import { Button } from '@components/Button';
 import { ScreenHeader } from '@components/ScreenHeader';
@@ -31,16 +33,25 @@ type FormDataProps = {
   confirm_password: string;
 }
 
+const profileSchema = yup.object({
+  name: yup.string().required('Informe o nome.'),
+})
+
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
   const [userPhoto, setUserPhoto] = useState('https://github.com/gbdsantos.png')
 
   const { user } = useAuth();
-  const { control, handleSubmit } = useForm<FormDataProps>({
+  const {
+    control,
+    formState: { errors },
+    handleSubmit
+  } = useForm<FormDataProps>({
     defaultValues: {
       name: user.name,
       email: user.email
-    }
+    },
+    resolver: yupResolver(profileSchema)
   });
   const toast = useToast();
 
@@ -119,6 +130,7 @@ export function Profile() {
             render={({ field: { value, onChange } }) => (
               <Input
                 bg="gray.600"
+                errorMessage={errors.name?.message}
                 onChangeText={onChange}
                 placeholder="Nome"
                 value={value}
@@ -163,6 +175,7 @@ export function Profile() {
             render={({ field: { onChange } }) => (
               <Input
                 bg="gray.600"
+                errorMessage={errors.password?.message}
                 onChangeText={onChange}
                 placeholder="Nova senha"
                 secureTextEntry
@@ -176,6 +189,7 @@ export function Profile() {
             render={({ field: { onChange } }) => (
               <Input
                 bg="gray.600"
+                errorMessage={errors.confirm_password?.message}
                 onChangeText={onChange}
                 placeholder="Confirme a nova senha"
                 secureTextEntry
