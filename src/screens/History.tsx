@@ -8,18 +8,11 @@ import { HistoryCard } from '@components/HistoryCard';
 import { api } from '@services/api';
 import { AppError } from '@utils/AppError';
 
+import { HistoryByDayDTO } from '@dtos/HistoryByDayDTO';
+
 export function History() {
   const [isLoading, setIsLoading] = useState(true);
-  const [exercises, setExercises] = useState([
-    {
-      title: '25.01.23',
-      data: ['Puxada frontal', 'Remada unilateral']
-    },
-    {
-      title: '26.01.23',
-      data: ['Puxada frontal']
-    }
-  ]);
+  const [exercises, setExercises] = useState<HistoryByDayDTO[]>([]);
 
   const toast = useToast();
 
@@ -27,7 +20,7 @@ export function History() {
     try {
       setIsLoading(true);
       const response = await api.get('/history');
-      console.log(response.data);
+      setExercises(response.data);
 
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -53,17 +46,14 @@ export function History() {
 
       <SectionList
         contentContainerStyle={exercises.length === 0 && { flex: 1, justifyContent: 'center' }}
-        keyExtractor={item => item}
+        keyExtractor={item => item.id}
         ListEmptyComponent={() => (
           <Text color="gray.100" textAlign="center">
             Não há exercícios registrados ainda. {'\n'}
             Vamos fazer exercícios hoje?
           </Text>
         )}
-        renderItem={({ item }) => (
-          <HistoryCard />
-        )
-        }
+        renderItem={({ item }) => <HistoryCard data={item} />}
         renderSectionHeader={({ section }) => (
           <Heading color="gray.200" fontFamily="heading" fontSize="md" mt={10} mb={3}>
             {section.title}
