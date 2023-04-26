@@ -36,7 +36,7 @@ export function Profile() {
   const [userPhoto, setUserPhoto] = useState('https://github.com/gbdsantos.png')
 
   const { user } = useAuth();
-  const { control } = useForm<FormDataProps>({
+  const { control, handleSubmit } = useForm<FormDataProps>({
     defaultValues: {
       name: user.name,
       email: user.email
@@ -78,6 +78,10 @@ export function Profile() {
     } finally {
       setPhotoIsLoading(false);
     }
+  }
+
+  async function handleProfileUpdate(data: FormDataProps) {
+    console.log(data);
   }
 
   return (
@@ -140,25 +144,47 @@ export function Profile() {
             Alterar senha
           </Heading>
 
-          <Input
-            bg="gray.600"
-            placeholder="Senha antiga"
-            secureTextEntry
+          <Controller
+            control={control}
+            name="old_password"
+            render={({ field: { onChange } }) => (
+              <Input
+                bg="gray.600"
+                onChangeText={onChange}
+                placeholder="Senha antiga"
+                secureTextEntry
+              />
+            )}
           />
 
-          <Input
-            bg="gray.600"
-            placeholder="Nova senha"
-            secureTextEntry
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange } }) => (
+              <Input
+                bg="gray.600"
+                onChangeText={onChange}
+                placeholder="Nova senha"
+                secureTextEntry
+              />
+            )}
           />
 
-          <Input
-            bg="gray.600"
-            placeholder="Confirme a nova senha"
-            secureTextEntry
+          <Controller
+            control={control}
+            name="confirm_password"
+            render={({ field: { onChange } }) => (
+              <Input
+                bg="gray.600"
+                onChangeText={onChange}
+                placeholder="Confirme a nova senha"
+                secureTextEntry
+              />
+            )}
           />
 
           <Button
+            onPress={handleSubmit(handleProfileUpdate)}
             title="Atualizar"
             mt={4}
           />
