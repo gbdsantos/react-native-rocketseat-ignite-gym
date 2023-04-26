@@ -9,21 +9,39 @@ import {
   useToast,
   VStack
 } from 'native-base'
+import { Controller, useForm } from 'react-hook-form';
 
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 
 import { Button } from '@components/Button';
-import { ScreenHeader } from '@components/ScreenHeader'
+import { ScreenHeader } from '@components/ScreenHeader';
 import { Input } from '@components/Input';
-import { UserPhoto } from '@components/UserPhoto'
+import { UserPhoto } from '@components/UserPhoto';
+
+import { useAuth } from '@hooks/useAuth';
 
 const PHOTO_SIZE = 33;
+
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  old_password: string;
+  confirm_password: string;
+}
 
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
   const [userPhoto, setUserPhoto] = useState('https://github.com/gbdsantos.png')
 
+  const { user } = useAuth();
+  const { control } = useForm<FormDataProps>({
+    defaultValues: {
+      name: user.name,
+      email: user.email
+    }
+  });
   const toast = useToast();
 
   async function handleUserPhotoSelect() {
@@ -91,15 +109,31 @@ export function Profile() {
             </Text>
           </TouchableOpacity>
 
-          <Input
-            bg="gray.600"
-            placeholder="Nome"
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { value, onChange } }) => (
+              <Input
+                bg="gray.600"
+                onChangeText={onChange}
+                placeholder="Nome"
+                value={value}
+              />
+            )}
           />
 
-          <Input
-            bg="gray.600"
-            isDisabled
-            placeholder="E-mail"
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { value, onChange } }) => (
+              <Input
+                bg="gray.600"
+                isDisabled
+                onChange={onChange}
+                placeholder="E-mail"
+                value={value}
+              />
+            )}
           />
 
           <Heading alignSelf="flex-start" color="gray.200" fontFamily="heading" fontSize="md" mb={2} mt={12}>
