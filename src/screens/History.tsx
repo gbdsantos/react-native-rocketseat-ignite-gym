@@ -1,10 +1,15 @@
-import { Heading, SectionList, Text, VStack } from 'native-base';
+import { useCallback, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { Heading, SectionList, Text, useToast, VStack } from 'native-base';
 
 import { ScreenHeader } from '@components/ScreenHeader';
 import { HistoryCard } from '@components/HistoryCard';
-import { useState } from 'react';
+
+import { api } from '@services/api';
+import { AppError } from '@utils/AppError';
 
 export function History() {
+  const [isLoading, setIsLoading] = useState(true);
   const [exercises, setExercises] = useState([
     {
       title: '25.01.23',
@@ -15,6 +20,32 @@ export function History() {
       data: ['Puxada frontal']
     }
   ]);
+
+  const toast = useToast();
+
+  async function fetchHistory() {
+    try {
+      setIsLoading(true);
+      const response = await api.get('/history');
+      console.log(response.data);
+
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError ? error.message : 'Não foi possível carregar o histórico.';
+
+      toast.show({
+        bgColor: 'red.500',
+        placement: 'top',
+        title
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useFocusEffect(useCallback(() => {
+    fetchHistory();
+  }, []));
 
   return (
     <VStack flex={1}>
