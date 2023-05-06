@@ -54,7 +54,7 @@ export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
   const [userPhoto, setUserPhoto] = useState('https://github.com/gbdsantos.png')
 
-  const { user } = useAuth();
+  const { user, updateUserProfile } = useAuth();
   const {
     control,
     formState: { errors },
@@ -108,7 +108,12 @@ export function Profile() {
     try {
       setIsUpdating(true);
 
+      const userUpdated = user;
+      userUpdated.name = data.name;
+
       await api.put('/users', data);
+
+      await updateUserProfile(userUpdated);
 
       toast.show({
         bgColor: 'green.500',
