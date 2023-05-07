@@ -100,9 +100,23 @@ export function Profile() {
           name: `${user.name}.${fileExtension}`.toLowerCase(),
           type: `${photoSelected.assets[0].type}/${fileExtension}`,
           uri: photoSelected.assets[0].uri
-        }
+        } as any;
 
-        console.log(photoFile);
+        const userPhotoUploadForm = new FormData();
+        userPhotoUploadForm.append('avatar', photoFile);
+
+        await api.patch('/users/avatar', userPhotoUploadForm, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        toast.show({
+          bgColor: 'green.500',
+          placement: 'top',
+          title: 'Foto atualizada!'
+        });
+
       }
 
     } catch (error) {
