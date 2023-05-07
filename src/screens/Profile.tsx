@@ -94,7 +94,15 @@ export function Profile() {
           });
         }
 
-        setUserPhoto(photoSelected.assets[0].uri);
+        const fileExtension = photoSelected.assets[0].uri.split('.').pop();
+
+        const photoFile = {
+          name: `${user.name}.${fileExtension}`.toLowerCase(),
+          type: `${photoSelected.assets[0].type}/${fileExtension}`,
+          uri: photoSelected.assets[0].uri
+        }
+
+        console.log(photoFile);
       }
 
     } catch (error) {
