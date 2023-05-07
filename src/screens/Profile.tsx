@@ -21,9 +21,11 @@ import { ScreenHeader } from '@components/ScreenHeader';
 import { Input } from '@components/Input';
 import { UserPhoto } from '@components/UserPhoto';
 
-import { api } from '@services/api';
 import { useAuth } from '@hooks/useAuth';
 import { AppError } from '@utils/AppError';
+
+import { api } from '@services/api';
+import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
 
 const PHOTO_SIZE = 33;
 
@@ -51,8 +53,7 @@ const profileSchema = yup.object({
 
 export function Profile() {
   const [isUpdating, setIsUpdating] = useState(false);
-  const [photoIsLoading, setPhotoIsLoading] = useState(false)
-  const [userPhoto, setUserPhoto] = useState('https://github.com/gbdsantos.png')
+  const [photoIsLoading, setPhotoIsLoading] = useState(false);
 
   const { user, updateUserProfile } = useAuth();
   const {
@@ -179,7 +180,11 @@ export function Profile() {
               /> :
               <UserPhoto
                 alt="Foto do usuário"
-                source={{ uri: userPhoto }}
+                source={
+                  user.avatar
+                    ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` }
+                    : defaultUserPhotoImg
+                }
                 size={PHOTO_SIZE}
               />
           }
